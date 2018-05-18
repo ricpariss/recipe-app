@@ -1,6 +1,9 @@
 package com.ricpariss.spring5.domain;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -31,6 +34,8 @@ public class Recipe {
 	private Integer servings;
 	private String source;
 	private String url;
+	
+	@Lob
 	private String directions;
 	
 	@Lob
@@ -42,7 +47,7 @@ public class Recipe {
 	
 	// mapped by refers to the target property in the Ingredient class
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="recipe")
-	private Set<Ingredient> ingredients;
+	private List<Ingredient> ingredients = new ArrayList<>();
 	
 	@Enumerated(value=EnumType.STRING)
 	private  Difficulty difficulty;
@@ -51,7 +56,7 @@ public class Recipe {
 	@JoinTable(name="recipe_category", 
 		joinColumns= {@JoinColumn(name="recipe_id")} , 
 			inverseJoinColumns= {@JoinColumn(name="category_id")})		
-	private Set<Category> categories;
+	private List<Category> categories = new ArrayList<>();
 
 	public Recipe() {
 		super();
@@ -119,11 +124,11 @@ public class Recipe {
 		this.notes = notes;
 	}
 
-	public Set<Ingredient> getIngredients() {
+	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
 
-	public void setIngredients(Set<Ingredient> ingredients) {
+	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
 
@@ -135,11 +140,11 @@ public class Recipe {
 		this.difficulty = difficulty;
 	}
 
-	public Set<Category> getCategories() {
+	public List<Category> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(Set<Category> categories) {
+	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
 
@@ -170,8 +175,11 @@ public class Recipe {
 
 	@Override
 	public String toString() {
-		return "Recipe [description=" + description + ", prepTime=" + prepTime + ", cookTime=" + cookTime
+		return "Recipe [id=" + id + ", description=" + description + ", prepTime=" + prepTime + ", cookTime=" + cookTime
 				+ ", servings=" + servings + ", source=" + source + ", url=" + url + ", directions=" + directions
-				+ ", image=" + Arrays.toString(image) + ", notes=" + notes + "]";
+				+ ", image=" + Arrays.toString(image) + ", notes=" + notes + ", ingredients=" + ingredients
+				+ ", difficulty=" + difficulty + ", categories=" + categories + "]";
 	}
+
+	
 }

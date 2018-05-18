@@ -31,6 +31,16 @@ public class Ingredient {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public Ingredient(String ingredient, BigDecimal amount, UnitOfMeasure uom, Recipe recipe) {
+		super();
+		this.ingredient = ingredient;
+		this.amount = amount;
+		this.uom = uom;
+		this.recipe = recipe;
+	}
+
+
+
 	public Long getId() {
 		return id;
 	}
