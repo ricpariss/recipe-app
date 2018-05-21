@@ -1,0 +1,52 @@
+entity Recipe {
+	description String,
+	prepTime Integer,
+    cookTime Integer,
+    servings Integer,
+    source String,
+    url String,
+    directions String,
+    dificulty Dificulty,
+    image Byte[]
+}
+enum Dificulty {
+	EASY, MODERATE, HARD
+}
+entity Category {
+	categoryName String required
+}
+entity Notes {
+	notes String
+}
+entity Ingredient {
+	description String,
+    amount Integer
+}
+entity UnitOfMeasure {
+	uom String
+}
+relationship OneToOne {
+	Recipe {notes}
+    to
+    Notes
+}
+relationship OneToMany {
+	Recipe {ingredients}
+    to
+    Ingredient
+}
+relationship ManyToOne {
+	Ingredient {recipe}
+    to
+    Recipe
+}
+relationship OneToOne {
+	Ingredient
+	to
+    UnitOfMeasure
+}
+relationship ManyToMany {
+	Recipe {categories}
+    to
+    Category
+}
